@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mississippi Ale House — Craft Beer, Live Music & Beer Garden in Olive Branch, MS</title>
+  <meta name="description" content="Olive Branch's craft beer destination. 30 rotating taps, live music five nights a week, karaoke, music bingo, and a beer garden with fire pits. 9211 MS-178, Olive Branch, MS." />
+  <meta property="og:title" content="Mississippi Ale House — Olive Branch's Craft Beer Destination" />
+  <meta property="og:description" content="30 rotating taps. Live music. Beer garden with fire pits. Tue–Sat in Olive Branch, MS." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mississippialehouse.com/" />
+  <meta property="og:image" content="assets/hero-poster.png" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-inner">
+      <svg class="pre-bottle" viewBox="0 0 140 300" fill="none" aria-hidden="true">
+        <defs>
+          <clipPath id="bottleClip">
+            <path d="M58 32 v40 c0 10 -2 14 -8 22 c-10 12 -18 22 -18 40 v120 a12 12 0 0 0 12 12 h52 a12 12 0 0 0 12 -12 v-120 c0 -18 -8 -28 -18 -40 c-6 -8 -8 -12 -8 -22 v-40 z"/>
+          </clipPath>
+        </defs>
+        <!-- liquid (clipped to bottle interior) -->
+        <g clip-path="url(#bottleClip)">
+          <g id="liquidG" transform="translate(0 266)">
+            <path class="pre-wave" fill="#e9a13b" d="M-140 12 q20 -12 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 v320 h-360 z"/>
+            <circle class="pre-bubble b1" cx="55" cy="60" r="4" fill="#f5b95c"/>
+            <circle class="pre-bubble b2" cx="78" cy="90" r="3" fill="#f5b95c"/>
+            <circle class="pre-bubble b3" cx="66" cy="120" r="2.5" fill="#f5b95c"/>
+          </g>
+        </g>
+        <!-- bottle outline + cap -->
+        <path d="M58 32 v40 c0 10 -2 14 -8 22 c-10 12 -18 22 -18 40 v120 a12 12 0 0 0 12 12 h52 a12 12 0 0 0 12 -12 v-120 c0 -18 -8 -28 -18 -40 c-6 -8 -8 -12 -8 -22 v-40 z" stroke="#14110c" stroke-width="6" stroke-linejoin="round"/>
+        <rect x="52" y="16" width="36" height="16" rx="4" stroke="#14110c" stroke-width="6"/>
+      </svg>
+      <p class="preloader-count"><span id="preCount">0</span>%</p>
+    </div>
+    <svg class="preloader-arc" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 H1440 C960 120 480 120 0 0 Z"/>
+    </svg>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#top" class="brand" aria-label="Mississippi Ale House — home">
+        <img src="assets/logo.png" alt="Mississippi Ale House" class="brand-logo" width="291" height="97" />
+      </a>
+      <nav class="main-nav" id="mainNav" aria-label="Primary">
+        <a href="#experience">Experience</a>
+        <a href="#events">Events</a>
+        <a href="#about">About</a>
+        <a href="#visit">Visit</a>
+        <a class="btn btn-solid nav-cta" href="https://taplist.io/taplist-474915" target="_blank" rel="noopener">On Tap Now</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.png" aria-hidden="true">
+        <source src="assets/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow anim-hero">Olive Branch, Mississippi</p>
+        <h1 class="hero-title">
+          <span class="line anim-hero">Craft Beer.</span>
+          <span class="line line-amber anim-hero">Good Company.</span>
+        </h1>
+      </div>
+      <a class="hero-scroll" href="#experience" aria-label="Scroll to content">
+        <svg width="20" height="30" viewBox="0 0 20 30" fill="none" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="17" height="27" rx="8.5" stroke="currentColor" stroke-width="2"/>
+          <circle class="scroll-dot" cx="10" cy="9" r="3" fill="currentColor"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ============ TICKER ============ -->
+    <div class="ticker-band" aria-label="Highlights">
+      <div class="ticker" id="ticker">
+        <div class="ticker-track">
+          <!-- set A -->
+          <span class="tk tk-amber">30 Taps</span>
+          <span class="tk tk-cream">Live Music</span>
+          <span class="tk tk-rust">Karaoke Thursdays</span>
+          <span class="tk tk-sage">Beer Garden</span>
+          <span class="tk tk-cream">Music Bingo Tuesdays</span>
+          <span class="tk tk-amber">DJ Saturdays</span>
+          <span class="tk tk-rust">Fire Pits</span>
+          <span class="tk tk-sage">Patio Music Fridays</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ EXPERIENCE CARDS ============ -->
+    <section class="section experience" id="experience">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">The Ale House</p>
+          <h2 class="section-title">Pick your night</h2>
+        </header>
+        <div class="card-grid">
+
+          <a class="xcard xcard-photo" href="https://taplist.io/taplist-474915" target="_blank" rel="noopener">
+            <div class="xcard-media">
+              <img src="assets/taproom.jpg" alt="Inside the Mississippi Ale House taproom" loading="lazy" />
+            </div>
+            <h3 class="xcard-title">What's On Tap</h3>
+            <span class="xcard-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="xcard xcard-illus tint-amber" href="#events">
+            <div class="xcard-media">
+              <!-- studio microphone illustration -->
+              <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Live entertainment illustration">
+                <circle cx="100" cy="62" r="28"/>
+                <path d="M76 54h48M76 70h48M100 34v56"/>
+                <path d="M58 62v6a42 42 0 0 0 84 0v-6M100 110v36M72 162h56"/>
+                <path d="M36 84l10-8M164 84l-10-8" stroke-width="4"/>
+              </svg>
+            </div>
+            <h3 class="xcard-title">Weekly Events</h3>
+            <span class="xcard-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="xcard xcard-photo" href="#about">
+            <div class="xcard-media">
+              <img src="assets/beergarden.jpg" alt="The beer garden and patio at Mississippi Ale House" loading="lazy" />
+            </div>
+            <h3 class="xcard-title">Beer Garden</h3>
+            <span class="xcard-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="xcard xcard-illus tint-rust" href="https://mississippialehouse.com/food-options" target="_blank" rel="noopener">
+            <div class="xcard-media">
+              <!-- fork and knife illustration -->
+              <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Food illustration">
+                <path d="M62 36v28M78 36v28M94 36v28"/>
+                <path d="M62 64a16 16 0 0 0 32 0"/>
+                <path d="M78 80v84"/>
+                <path d="M134 36c12 14 16 40 6 62h-6"/>
+                <path d="M134 36v128"/>
+              </svg>
+            </div>
+            <h3 class="xcard-title">Food Options</h3>
+            <span class="xcard-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="xcard xcard-illus tint-sage" href="https://mississippialehouse.com/band-booking-info" target="_blank" rel="noopener">
+            <div class="xcard-media">
+              <!-- guitar pick with lightning bolt illustration -->
+              <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Band booking illustration">
+                <path d="M62 58c0-18 76-18 76 0 0 38-24 80-38 96-14-16-38-58-38-96z"/>
+                <path d="M106 74l-17 30h13l-9 26 24-34h-13l11-22z"/>
+              </svg>
+            </div>
+            <h3 class="xcard-title">Book Your Band</h3>
+            <span class="xcard-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="xcard xcard-illus tint-cream" href="https://mississippialehouse.com/shop" target="_blank" rel="noopener">
+            <div class="xcard-media">
+              <!-- growler + glass illustration -->
+              <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Merch and gift cards illustration">
+                <path d="M74 58h24v14c10 6 16 16 16 28v52a10 10 0 0 1-10 10H68a10 10 0 0 1-10-10v-52c0-12 6-22 16-28V58zM74 46h24"/>
+                <path d="M132 96h30l-5 60a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8l-5-60zM130 112h34"/>
+              </svg>
+            </div>
+            <h3 class="xcard-title">Shop &amp; Gift Cards</h3>
+            <span class="xcard-arrow" aria-hidden="true">→</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EVENTS / HOURS ============ -->
+    <section class="section events" id="events">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Hours &amp; Weekly Events</p>
+          <h2 class="section-title">The weekly lineup</h2>
+          <p class="section-note">Closed Sunday &amp; Monday — resting up for the week ahead.</p>
+        </header>
+        <ul class="lineup">
+          <li class="lineup-row">
+            <span class="lineup-day">Tue</span>
+            <span class="lineup-hours">3–10 PM</span>
+            <span class="lineup-event">Music Bingo <em>6–8 PM</em></span>
+          </li>
+          <li class="lineup-row">
+            <span class="lineup-day">Wed</span>
+            <span class="lineup-hours">3–10 PM</span>
+            <span class="lineup-event">Community Night <em>6–8 PM</em></span>
+          </li>
+          <li class="lineup-row">
+            <span class="lineup-day">Thu</span>
+            <span class="lineup-hours">3–10 PM</span>
+            <span class="lineup-event">Karaoke <em>6–10 PM</em></span>
+          </li>
+          <li class="lineup-row">
+            <span class="lineup-day">Fri</span>
+            <span class="lineup-hours">3–11 PM</span>
+            <span class="lineup-event">Patio Music <em>7–10 PM</em></span>
+          </li>
+          <li class="lineup-row">
+            <span class="lineup-day">Sat</span>
+            <span class="lineup-hours">1–11 PM</span>
+            <span class="lineup-event">Patio Music <em>5–8 PM</em> · DJ <em>8–11 PM</em></span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="about-media">
+          <img src="assets/beergarden.jpg" alt="Guests enjoying the expanded beer garden" loading="lazy" />
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow">About Us</p>
+          <h2 class="section-title">Olive Branch's craft beer destination</h2>
+          <p>Mississippi Ale House features 30 rotating taps, live entertainment, community events, and a newly expanded beer garden with fire pits, patio seating, and outdoor music.</p>
+          <ul class="stats">
+            <li><span class="stat-num" data-count="30">30</span><span class="stat-label">Rotating taps</span></li>
+            <li><span class="stat-num" data-count="5">5</span><span class="stat-label">Nights a week</span></li>
+            <li><span class="stat-num">∞</span><span class="stat-label">Fire-pit stories</span></li>
+          </ul>
+          <a class="btn btn-solid" href="https://taplist.io/taplist-474915" target="_blank" rel="noopener">View the Tap List</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VISIT ============ -->
+    <section class="section visit" id="visit">
+      <div class="container visit-grid">
+        <div class="visit-info">
+          <p class="eyebrow">Find Us</p>
+          <h2 class="section-title">Come say hey</h2>
+          <address class="visit-address">
+            <p><strong>Mississippi Ale House</strong><br />9211 MS-178<br />Olive Branch, MS 38654</p>
+            <p><a href="tel:+19013262716">(901) 326-2716</a></p>
+          </address>
+          <dl class="visit-hours">
+            <div><dt>Sun–Mon</dt><dd>Closed</dd></div>
+            <div><dt>Tue–Thu</dt><dd>3–10 PM</dd></div>
+            <div><dt>Fri</dt><dd>3–11 PM</dd></div>
+            <div><dt>Sat</dt><dd>1–11 PM</dd></div>
+          </dl>
+          <div class="visit-actions">
+            <a class="btn btn-solid" href="https://www.google.com/maps/search/?api=1&query=Mississippi+Ale+House+9211+MS-178+Olive+Branch+MS+38654" target="_blank" rel="noopener">Get Directions</a>
+            <a class="btn btn-ghost" href="https://www.facebook.com/MississippiAleHouse/" target="_blank" rel="noopener">Follow on Facebook</a>
+          </div>
+        </div>
+        <a class="visit-map" href="https://www.google.com/maps/search/?api=1&query=Mississippi+Ale+House+9211+MS-178+Olive+Branch+MS+38654" target="_blank" rel="noopener" aria-label="Open map to Mississippi Ale House, 9211 MS-178, Olive Branch">
+          <svg class="map-art" viewBox="0 0 640 520" fill="none" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <!-- roads -->
+            <path d="M-20 390 C 140 330, 300 350, 660 250" stroke="rgba(243,235,221,0.28)" stroke-width="26" stroke-linecap="round"/>
+            <path d="M-20 390 C 140 330, 300 350, 660 250" stroke="rgba(243,235,221,0.1)" stroke-width="2" stroke-dasharray="14 16"/>
+            <path d="M180 -20 C 200 140, 150 320, 90 540" stroke="rgba(243,235,221,0.16)" stroke-width="14" stroke-linecap="round"/>
+            <path d="M470 -20 C 440 120, 500 300, 560 540" stroke="rgba(243,235,221,0.16)" stroke-width="14" stroke-linecap="round"/>
+            <path d="M-20 140 C 180 170, 420 120, 660 170" stroke="rgba(243,235,221,0.1)" stroke-width="8" stroke-linecap="round"/>
+            <!-- highway label -->
+            <g transform="translate(238 346)">
+              <rect x="-38" y="-22" width="76" height="44" rx="10" fill="#1c1811" stroke="rgba(243,235,221,0.35)" stroke-width="2"/>
+              <text x="0" y="7" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="19" fill="#f3ebdd">178</text>
+            </g>
+            <!-- pin -->
+            <g class="map-pin" transform="translate(352 268)">
+              <ellipse cx="0" cy="64" rx="26" ry="8" fill="rgba(0,0,0,0.45)"/>
+              <path d="M0 56 C -34 18 -44 -2 -44 -22 a44 44 0 0 1 88 0 C 44 -2 34 18 0 56 z" fill="#e9a13b"/>
+              <circle cx="0" cy="-20" r="17" fill="#14110c"/>
+              <circle cx="0" cy="-20" r="8" fill="#e9a13b"/>
+            </g>
+          </svg>
+          <span class="map-label">
+            <strong>9211 MS-178, Olive Branch</strong>
+            <span>Open in Google Maps →</span>
+          </span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Mississippi Ale House" width="218" height="73" loading="lazy" />
+        <p>Craft beer &amp; events in Olive Branch, MS.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="https://taplist.io/taplist-474915" target="_blank" rel="noopener">Tap List</a>
+        <a href="#events">Events</a>
+        <a href="https://mississippialehouse.com/food-options" target="_blank" rel="noopener">Food</a>
+        <a href="https://mississippialehouse.com/band-booking-info" target="_blank" rel="noopener">Band Booking</a>
+        <a href="https://mississippialehouse.com/shop" target="_blank" rel="noopener">Shop</a>
+      </nav>
+      <div class="footer-legal">
+        <p>© <span id="year">2026</span> Mississippi Ale House — All Rights Reserved.</p>
+        <p><a href="https://mississippialehouse.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://mississippialehouse.com/terms-and-conditions" target="_blank" rel="noopener">Terms &amp; Conditions</a></p>
+        <p class="footer-21">Please drink responsibly. 21+.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
