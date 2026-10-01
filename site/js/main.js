@@ -20,45 +20,133 @@
   var navToggle = document.getElementById("navToggle");
   var mainNav = document.getElementById("mainNav");
   if (navToggle && mainNav) {
-    navToggle.addEventListener("click", function () {
-      var open = mainNav.classList.toggle("is-open");
+    var setNav = function (open) {
+      mainNav.classList.toggle("is-open", open);
       navToggle.setAttribute("aria-expanded", String(open));
       navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    });
+      // the panel covers the page, so stop the page behind it from scrolling
+      document.documentElement.classList.toggle("no-scroll", open);
+    };
+    var navIsOpen = function () { return mainNav.classList.contains("is-open"); };
+
+    navToggle.addEventListener("click", function () { setNav(!navIsOpen()); });
+
     mainNav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
-        mainNav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-      }
+      if (e.target.closest("a")) setNav(false);
     });
+
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && mainNav.classList.contains("is-open")) {
-        mainNav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
+      if (!navIsOpen()) return;
+
+      if (e.key === "Escape") {
+        setNav(false);
         navToggle.focus();
+        return;
+      }
+
+      /* keep Tab inside the open panel. Source order matters: the toggle button
+         follows the nav in the DOM, so it is the last stop, not the first. */
+      if (e.key !== "Tab") return;
+      var focusable = Array.prototype.slice
+        .call(mainNav.querySelectorAll("a[href]"))
+        .concat([navToggle]);
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     });
+
+    /* a resize past the mobile breakpoint leaves the panel irrelevant — reset it.
+       addEventListener on a MediaQueryList is missing on older Safari, and an
+       uncaught throw here would take the rest of this file down with it. */
+    var desktopMQ = window.matchMedia("(min-width: 768px)");
+    var onBreakpoint = function (e) { if (e.matches && navIsOpen()) setNav(false); };
+    if (desktopMQ.addEventListener) desktopMQ.addEventListener("change", onBreakpoint);
+    else if (desktopMQ.addListener) desktopMQ.addListener(onBreakpoint);
   }
 
   /* ---------- ticker: duplicate track for seamless loop ---------- */
   var ticker = document.getElementById("ticker");
-  if (ticker) {
-    var track = ticker.querySelector(".ticker-track");
-    if (track && !prefersReducedMotion) {
-      // clone items until track is at least 2x viewport, then double for the -50% loop
-      var items = Array.prototype.slice.call(track.children);
-      var safety = 0;
-      while (track.scrollWidth < window.innerWidth * 2 && safety < 6) {
-        items.forEach(function (el) { track.appendChild(el.cloneNode(true)); });
-        safety++;
-      }
-      var clone = Array.prototype.slice.call(track.children);
-      clone.forEach(function (el) {
+  var tickerTrack = ticker && ticker.querySelector(".ticker-track");
+  if (tickerTrack && !prefersReducedMotion) {
+    // every clone is decorative — only the original set should reach a screen reader
+    var addClones = function (source) {
+      source.forEach(function (el) {
         var dup = el.cloneNode(true);
         dup.setAttribute("aria-hidden", "true");
-        track.appendChild(dup);
+        tickerTrack.appendChild(dup);
+      });
+    };
+    // clone items until the track is at least 2x viewport, then double for the -50% loop
+    var items = Array.prototype.slice.call(tickerTrack.children);
+    var safety = 0;
+    while (tickerTrack.scrollWidth < window.innerWidth * 2 && safety < 6) {
+      addClones(items);
+      safety++;
+    }
+    addClones(Array.prototype.slice.call(tickerTrack.children));
+  }
+
+  /* ---------- motion controls (WCAG 2.2.2: anything moving >5s needs a pause) ----------
+     aria-pressed is the state: "false" = running, "true" = paused. The button is
+     revealed only once there is actually motion to stop. */
+  function wireMotionToggle(btn, label, pause, play) {
+    if (!btn) return null;
+    var text = btn.querySelector(".motion-toggle-text");
+    var paused = false;
+    var render = function () {
+      btn.setAttribute("aria-pressed", String(paused));
+      if (text) text.textContent = (paused ? "Play " : "Pause ") + label;
+    };
+    btn.addEventListener("click", function () {
+      paused = !paused;
+      (paused ? pause : play)();
+      render();
+    });
+    render();
+    btn.hidden = false;
+    return btn;
+  }
+
+  /* ---------- hero video ---------- */
+  var heroVideo = document.getElementById("heroVideo");
+  var heroMotionToggle = document.getElementById("heroMotionToggle");
+  if (heroVideo && !prefersReducedMotion) {
+    // markup carries no `autoplay`, so reduced-motion visitors never fetch the file.
+    // The control is revealed on the play *attempt*, not on the promise settling:
+    // play() can stay pending while the video is already moving, and motion without
+    // a pause control is the exact thing this is here to prevent.
+    var heroToggle = wireMotionToggle(
+      heroMotionToggle,
+      "background video",
+      function () { heroVideo.pause(); },
+      function () { heroVideo.play(); }
+    );
+    var started = heroVideo.play();
+    if (started && typeof started.catch === "function") {
+      started.catch(function (err) {
+        // Only a refusal means nothing will ever move. An AbortError just means the
+        // pending play was interrupted — which is what happens when someone hits
+        // pause before playback begins, and the control is still needed then.
+        if (err && err.name === "NotAllowedError" && heroToggle) heroToggle.hidden = true;
       });
     }
+  }
+
+  /* ---------- ticker pause control ---------- */
+  if (tickerTrack && !prefersReducedMotion) {
+    wireMotionToggle(
+      document.getElementById("tickerMotionToggle"),
+      "scrolling highlights",
+      function () { tickerTrack.classList.add("is-paused"); },
+      function () { tickerTrack.classList.remove("is-paused"); }
+    );
   }
 
   /* ---------- preloader ---------- */

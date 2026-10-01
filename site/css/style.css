@@ -60,6 +60,54 @@ address { font-style: normal; }
 
 :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
 
+/* visually hidden, still announced by screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- motion pause/play controls (WCAG 2.2.2) ---------- */
+.motion-toggle {
+  position: absolute; z-index: 3;
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 32px; padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(20, 17, 12, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease-expo), border-color 0.25s var(--ease-expo),
+              color 0.25s var(--ease-expo), opacity 0.25s var(--ease-expo);
+}
+.motion-toggle:hover { border-color: var(--amber); color: var(--amber-hi); }
+.motion-toggle[hidden] { display: none; }
+/* aria-pressed is the state: false = running (offer pause), true = paused (offer play) */
+.motion-toggle .mt-play { display: none; }
+.motion-toggle[aria-pressed="true"] .mt-pause { display: none; }
+.motion-toggle[aria-pressed="true"] .mt-play { display: block; }
+
+.hero-motion-toggle { right: var(--space-3); bottom: 26px; opacity: 0.75; }
+.hero-motion-toggle:hover, .hero-motion-toggle:focus-visible { opacity: 1; }
+/* sits in the band's lower gutter, clear of the chips — overlaying a dense
+   marquee cuts the type in half however the pill is styled */
+.ticker-motion-toggle {
+  right: var(--space-3); bottom: 6px;
+  min-height: 26px; padding: 4px 11px;
+  font-size: 0.68rem;
+  color: var(--cream-dim);
+}
+.ticker-motion-toggle:hover { color: var(--amber-hi); }
+
 .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-3); }
 .section { padding: var(--space-6) 0; }
 
@@ -230,11 +278,6 @@ html.no-scroll { overflow: hidden; }
   letter-spacing: 0.005em;
 }
 .hero-title .line { display: block; }
-.line-outline {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--cream);
-  text-stroke: 2px var(--cream);
-}
 .line-amber { color: var(--amber); }
 .hero-scroll {
   position: absolute; z-index: 2;
@@ -255,7 +298,9 @@ html.no-scroll { overflow: hidden; }
    Ticker (Slush-style rolling band)
    ========================================================================== */
 .ticker-band {
-  padding: var(--space-3) 0;
+  position: relative;
+  /* extra bottom padding reserves the gutter the pause control sits in */
+  padding: var(--space-3) 0 calc(var(--space-3) + 22px);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: var(--ink);
@@ -269,7 +314,10 @@ html.no-scroll { overflow: hidden; }
   animation: tickerScroll 36s linear infinite;
   will-change: transform;
 }
-.ticker:hover .ticker-track { animation-play-state: paused; }
+/* pause on hover, on keyboard focus anywhere in the band, and via the toggle */
+.ticker:hover .ticker-track,
+.ticker-band:focus-within .ticker-track,
+.ticker-track.is-paused { animation-play-state: paused; }
 @keyframes tickerScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -531,11 +579,33 @@ html.no-scroll { overflow: hidden; }
     border-bottom: 1px solid var(--line);
     padding: var(--space-2) var(--space-3) var(--space-3);
     transform: translateY(-115%);
-    transition: transform 0.4s var(--ease-expo);
+    /* visibility keeps the closed panel out of the tab order; it inherits to the
+       links, and delaying it lets the slide-out animation finish first */
+    visibility: hidden;
+    transition: transform 0.4s var(--ease-expo), visibility 0s linear 0.4s;
   }
-  .main-nav.is-open { transform: translateY(0); }
+  .main-nav.is-open {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.4s var(--ease-expo), visibility 0s linear 0s;
+  }
   .main-nav > a:not(.btn) { padding: 16px 4px; border-bottom: 1px solid var(--line); }
   .nav-cta { margin-top: var(--space-2); }
+
+  /* icon-only so the pill clears the centred scroll indicator; the label stays
+     in the accessibility tree */
+  .hero-motion-toggle {
+    min-width: 44px; min-height: 44px;   /* comfortable touch target */
+    padding: 0; justify-content: center;
+  }
+  .hero-motion-toggle .motion-toggle-text {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 
   .card-grid { grid-template-columns: 1fr; }
   .xcard { min-height: 300px; }
@@ -554,5 +624,9 @@ html.no-scroll { overflow: hidden; }
   .ticker-track { animation: none; flex-wrap: wrap; width: auto; }
   .scroll-dot { animation: none; }
   .anim-hero, .reveal { opacity: 1 !important; transform: none !important; }
-  *, *::before, *::after { transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    /* without this the mobile nav's visibility delay would outlive the transition */
+    transition-delay: 0s !important;
+  }
 }

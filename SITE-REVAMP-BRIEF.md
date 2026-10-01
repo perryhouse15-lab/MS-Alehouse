@@ -6,6 +6,41 @@
 
 ---
 
+## ⚠ STATUS — Phase 1 has shipped
+
+**Phase 1 of §7 was implemented on 2026-10-01** (same branch, commit after this brief
+landed). The items below are **done** and should not be redone:
+
+| Item | What changed |
+|---|---|
+| P1-2 | `og:image` made absolute; added `og:image:width/height/alt`, `og:site_name`, `og:locale`, full `twitter:*` block |
+| P1-3 | Added `rel=canonical`, `theme-color`, `robots.txt`, `sitemap.xml` |
+| P2-3 | `hero-poster.png` → `hero-poster.jpg` (it was always a JPEG); both references updated |
+| P2-4 | `width`/`height` + `srcset`/`sizes` on all three content images; variants generated |
+| P3-6 | Dead `.line-outline` rule removed |
+| P4-1 | Hero video: `autoplay` removed, playback started from JS so reduced-motion never downloads it; visible pause/play control added |
+| P4-2 | Ticker: pause control added, plus pause on `:focus-within` |
+| P4-3 | Mobile nav hidden with `visibility` (was tab-reachable while closed); body scroll lock and focus trap added |
+| P4-4 | All ticker clones now `aria-hidden` (the first clone pass was missing it) |
+| P4-5 | `.sr-only` "(opens in a new tab)" cue on all 15 external links |
+| P4-6 | Square `favicon-32.png` and `icon-180.png` cropped from the logo badge |
+
+**Still open: everything else.** P0-1…P0-5, P1-1, P1-4, P2-1, P2-2, P2-5, P2-6,
+P3-1…P3-5, P3-7. The §6 blocking questions are all still unanswered.
+
+> **The file:line references throughout §2 and §5 describe the pre-Phase-1 code.**
+> They were accurate at commit `312d028` and many have since moved. Treat them as
+> "roughly here, in this file" and confirm against the current source before editing.
+> The measurements in §2.1–2.4 (hours, contrast, video specs) are still valid; §2.3's
+> audit counts and §2.5's preloader timing describe the old state.
+
+**Verification available:** the Phase 1 work was checked in a real browser (Chromium
+via Playwright) across mobile/desktop, reduced-motion, and both the GSAP and
+GSAP-blocked code paths. If you extend this work, exercising both those JS paths
+matters — the CDN can fail, and `js/main.js` is written to degrade when it does.
+
+---
+
 ## 0. How to use this document
 
 This is a handoff brief, not a spec you must follow literally. Everything in §2
